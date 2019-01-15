@@ -1,7 +1,7 @@
 #
 #  P i l o t . p y
 #
-#  Copyright 2011, 2018 by Edward Forgacs.
+#  By Edward Forgacs.
 #
 
 import sys
