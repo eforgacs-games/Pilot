@@ -1,7 +1,7 @@
 #
 #  P i l o t . p y
 #
-#  Copyright 2011, 2018 by Edward Forgacs.
+#  By Edward Forgacs (2011, 2018).
 #
 
 import sys
@@ -630,25 +630,41 @@ def cave():
 
 
 def rope_ladder():
-    if not NPCs.caveman_alive:
+    if NPCs.caveman_alive:
+        if Inventory.have_rifle:
+            return kill_caveman_with_ar()
+        else:
+            if Inventory.have_handgun:
+                if NPCs.woman_met:
+                    if NPCs.woman_alive:
+                        woman_kills_caveman_with_handgun()
+                    else:
+                        kill_caveman_with_handgun()
+                else:
+                    kill_caveman_with_handgun()
+            else:
+                if NPCs.woman_met:
+                    if NPCs.woman_alive:
+                        woman_kills_caveman_with_arrow()
+                else:
+                    return killed_by_caveman()
+    else:
         print('You see no reason to visit the cave dweller\'s corpse.')
         print('')
         pause()
         cave()
-    if not NPCs.woman_alive and not NPCs.woman_met:
-        if not Inventory.have_rifle:
-            if not Inventory.have_handgun:
-                killed_by_caveman()
-                return
-            else:
-                kill_caveman_with_handgun()
-        else:
-            kill_caveman_with_ar()
-    else:
-        if Inventory.have_handgun:
-            woman_kills_caveman_with_handgun()
-        else:
-            woman_kills_caveman_with_arrow()
+
+
+def killed_by_caveman():
+    print('You climb the rope ladder.')
+    input()
+    print('Once at the top, you see a beast of a man with a machete.')
+    input()
+    print('He lunges at you and lops off your head in one clean slice.')
+    input()
+    print('')
+    print('You are dead.')
+    return
 
 
 def woman_kills_caveman_with_handgun():
@@ -709,17 +725,6 @@ def kill_caveman_with_handgun():
     Inventory.have_machete = True
     pause()
     cave()
-
-
-def killed_by_caveman():
-    print('You climb the rope ladder.')
-    input()
-    print('Once at the top, you see a beast of a man with a machete.')
-    input()
-    print('He lunges at you and lops off your head in one clean slice.')
-    input()
-    print('')
-    print('You are dead.')
 
 
 def query_yes_no(question, default=None):
