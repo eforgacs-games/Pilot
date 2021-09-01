@@ -8,6 +8,9 @@ import sys
 
 
 class Inventory:
+    def __init__(self):
+        pass
+
     have_rifle = False
     have_handgun = False
     have_supplies = False
@@ -18,6 +21,9 @@ class Inventory:
 
 
 class NPCs:
+    def __init__(self):
+        pass
+
     bear_alive = True
     woman_met = False
     woman_alive = True
@@ -26,6 +32,9 @@ class NPCs:
 
 
 class Settings:
+    def __init__(self):
+        pass
+
     debug_mode = False
 
 
@@ -41,17 +50,14 @@ def choose_path(number_of_paths, type_=int, min_=None, range_=None):
             except ValueError:
                 if Settings.debug_mode:
                     print(
-                        "Input type must be of type {0}.".format(
-                            type_.__name__))
+                        f"Input type must be of type {type_.__name__}.")
                 else:
                     print("Please input a number.")
                 continue
         if max_ is not None and ui > max_:
-            print(
-                "The path chosen must be less than or equal to {0}.".format(max_))
+            print(f"The path chosen must be less than or equal to {max_}.")
         elif min_ is not None and ui < min_:
-            print(
-                "The path chosen must be greater than or equal to {0}.".format(min_))
+            print(f"The path chosen must be greater than or equal to {min_}.")
         elif range_ is not None and ui not in range_:
             if isinstance(range_, range):
                 template = "The path must be between {0.start} and {0.stop}."
@@ -737,7 +743,7 @@ def query_yes_no(question, default=None):
     elif default == "no":
         prompt = " [y/N] "
     else:
-        raise ValueError("invalid default answer: '%s'" % default)
+        raise ValueError(f"invalid default answer: '{default}'")
 
     while True:
         sys.stdout.write(question + prompt)
